@@ -1,46 +1,32 @@
 const express = require('express');
-const { PrismaClient } = require('@prisma/client');
-const app = express();
-const prisma = new PrismaClient()
-const { ApolloServer, gql } = require('apollo-server-express');
+const { ApolloServer} = require('apollo-server-express');
+const typeDefs  = require('./typeDefs');
+const resolvers = require('./resolver');
+const mongoose = require('mongoose');
 const cors = require('cors');
 const port=8080;
+
+
  
 
-app.use(cors());
-
-
-async function main() {
-    await prisma.$connect();
+async function startServer(){
+   const MONGODB='mongodb+srv://shanvit:jojobizzare@anime-cluster.errtxi3.mongodb.net/Anime-DB?retryWrites=true&w=majority';
+   const app = express();
+   const apolloServer = new ApolloServer({ typeDefs,resolvers });
+   app.use(cors());
+   await apolloServer.start();
+   apolloServer.applyMiddleware({app});
+   mongoose.connect(MONGODB,{
+      useUnifiedTopology:true,
+      useNewUrlParser:true,
+   })
+   .then().catch(err=>{console.log(err)});
+   let db = mongoose.connection;
+   db.on("error", console.error.bind(console, "connection error: "));
+   db.once("open", function () {
+     console.log("Connected successfully");
+   });
+   app.listen(port, () => {console.log('GraphQL server is proxied at 8080');})
 }
 
-main()
-  .then(async () => {
-    await prisma.$disconnect()
-  })
-  .catch(async (e) => {
-    console.error(e)
-    await prisma.$disconnect()
-    process.exit(1)
-})
-
-
-const typeDefs= gql`
- type Query {
-    greet: String
- }
-`;
-
-const resolvers={
-    Query:{
-        greet:()=> 'Welcome to Anime server..',
-    },
-};
-
-const server = new ApolloServer({ typeDefs, resolvers });
-
-server.start().then(res=>{
-server.applyMiddleware({app});
-app.listen(port, () => {console.log('GraphQL server is proxied at 8080');})
-});
-
+startServer();
