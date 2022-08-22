@@ -12,6 +12,7 @@ const port=8080;
 async function startServer(){
    const MONGODB='mongodb+srv://shanvit:jojobizzare@anime-cluster.errtxi3.mongodb.net/Anime-DB?retryWrites=true&w=majority';
    const app = express();
+   app.use(express.json());
    const apolloServer = new ApolloServer({ typeDefs,resolvers });
    app.use(cors());
    await apolloServer.start();
