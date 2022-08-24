@@ -1,10 +1,31 @@
 .landingTitle{
     color:goldenrod;
-    font-size: 45px;
+    font-size: 120px;
     text-align: center;
 }
 
 .landingText{
     color:goldenrod;
-    font-size: 20px;
+    font-size: 30px;
+}
+
+.landingBox{
+    color:transparent;
+    width: 7rem;
+    height: 7rem;
+    border:1px solid;
+}
+
+
+.landingStack{
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin-top: 15%;
+}
+
+@media screen and (max-width:750px){
+        .landingTitle{
+            font-size: 3rem;
+        }
 }

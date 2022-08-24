@@ -1,10 +1,13 @@
 import styles from './index.module.css';
-import { motion } from 'framer-motion';
+import { motion, isValidMotionProp } from 'framer-motion';
 import {
   Center,
+  chakra
  } from '@chakra-ui/react';
 
-export default function LandingPage() {
+export default function LandingPage(){
+  const LandingBox = chakra(motion.div,{ shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === 'children',});
+  const LandingStack = chakra(motion.div,{  shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === 'children',});
   return (
     <>
     <Center>
@@ -26,6 +29,74 @@ export default function LandingPage() {
       >
       We’re all otaku here
     </motion.p>
+    </Center>
+   
+    <Center>
+    <LandingStack 
+    className={styles.landingStack} 
+    initial={{y:1000}}
+    animate={{y:1}}
+    transition={{ ease: "easeOut", duration: 2}}
+    >
+
+      <LandingBox
+      as={motion.div}
+      animate={{
+        scale: [1, 2, 2, 1, 1],
+        rotate: [0, 0, 270, 270, 0],
+        borderRadius: ["20%", "50%", "0%", "50%", "20%"],
+      }}
+      transition={{ 
+      ease: "easeOut", 
+      duration: 3,
+      repeat: Infinity,
+      repeatType: "loop",
+    }}
+      className={styles.landingBox}
+      style={{borderColor:'#0D766C'}}
+      >
+          
+      </LandingBox>
+
+      <LandingBox
+       as={motion.div}
+       animate={{
+        scale: [1, 2, 2, 1, 1],
+        rotate: [0, 0, 270, 270, 0],
+        borderRadius: ["20%", "50%", "0%", "50%", "20%"],
+      }}
+       transition={{
+       ease: "easeOut",
+       duration: 3,
+       repeat: Infinity,
+       repeatType: "loop",
+      }}
+       className={styles.landingBox}
+       style={{borderColor:'#B4F8C8'}}
+      >
+         
+      </LandingBox>
+
+      <LandingBox
+       as={motion.div}
+       animate={{
+        scale: [1, 2, 2, 1, 1],
+        rotate: [0, 0, 270, 270, 0],
+        borderRadius: ["20%", "50%", "0%", "50%", "20%"],
+      }}
+       transition={{ 
+         ease: "easeOut",
+         duration: 3,
+         repeat: Infinity,
+         repeatType: "loop",
+        }}
+       className={styles.landingBox}
+       style={{borderColor:'green'}}
+      >
+       
+      </LandingBox>
+
+    </LandingStack>
     </Center>
 
 
