@@ -2,12 +2,14 @@ import styles from './index.module.css';
 import { motion, isValidMotionProp } from 'framer-motion';
 import {
   Center,
-  chakra
+  chakra,
  } from '@chakra-ui/react';
+import {ArrowForwardIcon} from '@chakra-ui/icons'; 
 
 export default function LandingPage(){
   const LandingBox = chakra(motion.div,{ shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === 'children',});
   const LandingStack = chakra(motion.div,{  shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === 'children',});
+  const LandingButton =  chakra(motion.button,{  shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === 'children',});
   return (
     <>
     <Center>
@@ -97,6 +99,28 @@ export default function LandingPage(){
       </LandingBox>
 
     </LandingStack>
+    </Center>
+
+    <Center>
+      <LandingButton
+      className={styles.landingButton}
+      style={{color:'whitesmoke'}}
+      whileHover={{
+        scale:1.3,
+      }}
+      >
+        <motion.div
+        whileHover={{
+          scale:1.2,
+          rotate:270
+        }}
+        whileTap={{
+          y:-50,
+        }}
+        >
+          <ArrowForwardIcon className={styles.landingIcon}/>
+        </motion.div>
+      </LandingButton>
     </Center>
 
 
