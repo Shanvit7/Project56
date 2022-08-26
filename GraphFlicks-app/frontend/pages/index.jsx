@@ -5,8 +5,12 @@ import {
   chakra,
  } from '@chakra-ui/react';
 import {ArrowForwardIcon} from '@chakra-ui/icons'; 
+import { useRouter } from 'next/router'
+
 
 export default function LandingPage(){
+  const router = useRouter();
+
   const LandingBox = chakra(motion.div,{ shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === 'children',});
   const LandingStack = chakra(motion.div,{  shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === 'children',});
   const LandingButton =  chakra(motion.button,{  shouldForwardProp: (prop) => isValidMotionProp(prop) || prop === 'children',});
@@ -108,6 +112,7 @@ export default function LandingPage(){
       whileHover={{
         scale:1.3,
       }}
+      onTap={()=>router.push('MainPage')}
       >
         <motion.div
         whileHover={{
