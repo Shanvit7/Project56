@@ -9,7 +9,7 @@ type Users {
 }
 
 type Query {
-   greet: String
+   appName: String
    getUsers:[Users]
 }
 

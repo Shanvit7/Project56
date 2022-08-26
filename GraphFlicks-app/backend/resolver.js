@@ -2,7 +2,7 @@ const Users = require('./models/user.model');
 
 const resolvers={
     Query:{
-        greet:()=> 'Welcome to Anime server..',
+        appName:()=> 'AnimeGraph',
         getUsers:async()=>{ return await Users.find({})}
     },
 };
