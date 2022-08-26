@@ -18,7 +18,7 @@ export default function LandingPage(){
         initial={{y:-1000}}
         animate={{y:80}}  
         >
-         Welcome to AnimeGraph
+         Welcome to GraphFlicks
        </motion.h1>
     </Center>
 
@@ -29,7 +29,7 @@ export default function LandingPage(){
       animate={{x:1,y:100,opacity:1}}
       transition={{ ease: "easeOut", duration: 2 }}
       >
-      We’re all otaku here
+     All time movies on demand
     </motion.p>
     </Center>
    
