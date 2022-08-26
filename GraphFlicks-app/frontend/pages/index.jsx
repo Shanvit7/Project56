@@ -5,7 +5,7 @@ import {
   chakra,
  } from '@chakra-ui/react';
 import {ArrowForwardIcon} from '@chakra-ui/icons'; 
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 
 export default function LandingPage(){
