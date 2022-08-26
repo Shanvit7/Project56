@@ -62,6 +62,7 @@ const MainPage=({videos})=>{
          <motion.div 
          style={{height:'fit-content'}}
          whileHover={{opacity:0.5}}
+         key={video.title}
          >
           <ReactPlayer 
           url={video.mp4.url} 
