@@ -1,4 +1,4 @@
-import '../styles/globals.css';
+import '../styles/globals.scss';
 import { ChakraProvider,extendTheme } from '@chakra-ui/react';
 import {useEffect,useState} from 'react';
 import { store } from '../store';
@@ -10,7 +10,7 @@ const theme = extendTheme({
   styles:{
       global:()=>({
           body:{
-              bg:'#1A1428'
+              bg:'#000000'
           }
       })
   }

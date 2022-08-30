@@ -1,7 +1,5 @@
 import SideBar from "../components/SideBar";
 import {gql,GraphQLClient} from 'graphql-request';
-import {Center} from '@chakra-ui/react';
-import {motion} from 'framer-motion';
 import ReactPlayer from 'react-player'
 import { useRouter } from 'next/router';
 import {useDispatch} from 'react-redux';
@@ -50,38 +48,8 @@ export const getStaticProps = async ()=>{
 const MainPage=({videos})=>{
     const router = useRouter();
     const dispatch = useDispatch();
-    console.log(videos);
     return(
-    <div style={{display:'flex'}}>
-     <SideBar />
-
-     <div style={{display:'flex',justifyContent:'space-around',width:'100%',marginTop:'5%',flexWrap:'wrap'}}>
-        
-
-         {videos.map(video=>
-         <motion.div 
-         style={{height:'fit-content'}}
-         whileHover={{opacity:0.5}}
-         key={video.title}
-         >
-          <ReactPlayer 
-          url={video.mp4.url} 
-          light={video.thumbnail.url} 
-          height='25vh' 
-          width='20vw'
-          onClickPreview={()=>{router.push('Player');dispatch(loadVideo(video.mp4.url))}}
-          />
-          <Center>
-            
-          <div style={{color:'whitesmoke'}}>{video.title}</div>
-          
-          </Center>
-          </motion.div>
-        )}
-
-      </div>
-
-     </div>
+      <></>
     )
 }
 
