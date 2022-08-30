@@ -52,6 +52,7 @@ export default function LandingPage(){
       className={styles.landing_btn}
       animate={{scale:2}}
       whileHover={{scale:1.8}}
+      onTap={()=>router.push('/SignupPage')}
       >
         Get Started
       </LandingButton>
