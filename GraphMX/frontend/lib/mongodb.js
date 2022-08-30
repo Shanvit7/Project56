@@ -11,8 +11,7 @@ let database = null;
 
 
 if (!process.env.NEXT_ATLAS_URI) {
-    console.log(process.env.NEXT_ATLAS_URI);
-    throw new Error('Please add your Mongo URI to .env.local')
+    throw new Error('Please add your Mongo URI to .env.local',process.env.NEXT_ATLAS_URI);
 }
 
 export async function connectToDatabase() {
