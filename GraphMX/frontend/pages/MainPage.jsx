@@ -1,4 +1,3 @@
-import SideBar from "../components/SideBar";
 import {gql,GraphQLClient} from 'graphql-request';
 import ReactPlayer from 'react-player'
 import { useRouter } from 'next/router';
