@@ -1,0 +1,46 @@
+.signup_page{
+    height: 100vh;
+    overflow: hidden;
+
+.signup_box{
+    background-color: whitesmoke;
+    width: 50vw;
+    height: 60vh;
+    color: blue;
+
+    .signup_title{
+        font-size: 40px;
+    }
+
+    .signup_input{
+        width: 70%;
+        margin-top: 4%;
+    }
+
+    .signup_btn{
+        margin-top: 4%;
+        background-color: whitesmoke;
+        color: blue;
+    }
+
+    .signup_btn:hover{
+        background-color:blue ;
+        color: white;
+    }
+
+    .signup_link{
+      margin-top: 2%;
+      font-size: 16px;
+    }
+  
+
+ }
+}
+
+@media screen and (max-width:700px) {
+    .signup_page{
+    .signup_box{
+        width: 90%;
+    }
+  }
+}
