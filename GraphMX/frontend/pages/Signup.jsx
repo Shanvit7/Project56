@@ -3,24 +3,24 @@ import { Center,Box,Input,Button} from '@chakra-ui/react';
 import Link from 'next/link';
 import { useForm } from "react-hook-form";
 import {useState} from 'react'
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import {useRouter} from 'next/router';
+import { registerProfile } from '../slices/authSlice';
 
-const SignupPage=()=>{
+const Signup=()=>{
+    const dispatch = useDispatch();
+    const router = useRouter();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [errorPassword,setErrorPassword] = useState(false);
 
-    const registerUser=(formData)=>{
-        console.log(formData);
-        axios.post('/api/registerUser',{formData});
-    }
 
     const onSubmit = data => {
         if(data.password!==data.confirmPassword){
             setErrorPassword(true);
         }else{
             setErrorPassword(false);
-            delete data['confirmPassword']
-            registerUser(data);
+            delete data['confirmPassword'];
+            dispatch(registerProfile(data));
         }
     };
    
@@ -91,8 +91,8 @@ const SignupPage=()=>{
             {errorPassword?<p className={style.signup_error}>Passwords do not match ( Minimum 8 characters) !</p>:''}
             
 
-            <Center><Button  type='submit'className={style.signup_btn} >Create Account</Button></Center>
-            <Center className={style.signup_link}><Link  href='/'>Already have an account?</Link></Center>
+            <Center><Button type='submit' className={style.signup_btn}>Create Account</Button></Center>
+            <Center className={style.signup_link}><Link href='/Login'>Already have an account?</Link></Center>
 
         </Box>
         </form>
@@ -100,4 +100,4 @@ const SignupPage=()=>{
     )
 }
 
-export default SignupPage;
+export default Signup;
