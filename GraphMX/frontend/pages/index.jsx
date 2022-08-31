@@ -11,7 +11,7 @@ export default function LandingPage(){
   const [title,setTitle] =  useState();
   useEffect(() => {
     (async () => {
-        axios.get("/api/list").then((res)=>{
+        axios.get("/api/landing").then((res)=>{
           setTitle(res.data[0].title);
         })
      
