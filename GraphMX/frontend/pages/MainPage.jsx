@@ -65,12 +65,12 @@ const MainPage=({videos})=>{
     const isLoggedin = useSelector(state=>state.authorization.isLoggedin);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
-    // if(!isLoggedin){
-    //   router.push('/Login');
-    // }
+    if(!isLoggedin){
+      router.push('/Login');
+    }
 
     return(<>
-      {  (true) &&
+      {  (isLoggedin) &&
       <div>
         <Button ref={btnRef} colorScheme="messenger" onClick={onOpen}>
           <ArrowRightIcon/>
@@ -87,7 +87,7 @@ const MainPage=({videos})=>{
           <DrawerCloseButton />
           <DrawerHeader style={{backgroundColor:"blue",color:"whitesmoke"}}>
           <Center>
-            GraphMX (Beta)
+            GraphMX {`(Beta)`}
             </Center>
           </DrawerHeader>
 
