@@ -11,7 +11,7 @@ export default function LandingPage(){
   const [title,setTitle] =  useState();
   useEffect(() => {
     (async () => {
-        axios.get("/api/list").then((res)=>{
+        axios.get("/api/landing").then((res)=>{
           setTitle(res.data[0].title);
         })
      
@@ -52,7 +52,7 @@ export default function LandingPage(){
       className={styles.landing_btn}
       animate={{scale:2}}
       whileHover={{scale:1.8}}
-      onTap={()=>router.push('/SignupPage')}
+      onTap={()=>router.push('/Signup')}
       >
         Get Started
       </LandingButton>

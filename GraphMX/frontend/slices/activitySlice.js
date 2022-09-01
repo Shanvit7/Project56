@@ -14,7 +14,6 @@ export const activitySlice = createSlice({
   },
 })
 
-// Action creators are generated for each case reducer function
 export const { loadVideo } = activitySlice.actions
 
 export default activitySlice.reducer
