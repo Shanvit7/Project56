@@ -77,7 +77,7 @@ const Login=()=>{
            }
 
             <Center><Button type='submit'className={style.login_btn}>Login</Button></Center>
-            <Center className={style.login_link}><Link href='/Signup'>Don't have an account?</Link></Center>
+            <Center className={style.login_link}><Link href='/Signup'>{`Don't have an account?`}</Link></Center>
 
             </Box>
             </form>
