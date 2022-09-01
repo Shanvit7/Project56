@@ -2,7 +2,7 @@ import {gql,GraphQLClient} from 'graphql-request';
 import ReactPlayer from 'react-player';
 import React from 'react';
 import { useRouter } from 'next/router';
-import {useDispatch} from 'react-redux';
+import {useDispatch,useSelector} from 'react-redux';
 import { loadVideo } from '../slices/activitySlice';
 import {
   Drawer,
@@ -62,9 +62,15 @@ export const getStaticProps = async ()=>{
 const MainPage=({videos})=>{
     const router = useRouter();
     const dispatch = useDispatch();
+    const isLoggedin = useSelector(state=>state.authorization.isLoggedin);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
-    return(
+    if(!isLoggedin){
+      router.push('/Login');
+    }
+
+    return(<>
+      { (isLoggedin) &&
       <div>
         <Button ref={btnRef} colorScheme="messenger" onClick={onOpen}>
           <ArrowRightIcon/>
@@ -96,7 +102,7 @@ const MainPage=({videos})=>{
             </Center>
 
             <Center>
-              <div className={style.sidebar_options}>My Account</div>
+              <div className={style.sidebar_options}>My Watchlist</div>
             </Center>
 
             <Center>
@@ -107,7 +113,7 @@ const MainPage=({videos})=>{
           
           </DrawerBody>
 
-          <DrawerFooter style={{backgroundColor:"blue",color:"whitesmoke"}}>
+          <DrawerFooter className={style.sidebar_footer}>
             <Center>
              
             </Center>
@@ -117,12 +123,35 @@ const MainPage=({videos})=>{
         </DrawerContent>
       </Drawer>
 
-      <Center style={{color:'whitesmoke'}}>
-      All video content will be delivered here
+     
+      <div className={style.player_list_header}>
+        New Releases
+      </div>
+      <div className={style.player_list}>
+      {
+      videos.map((video,key)=>
+      (<div className={style.player_wrapper}>
+      <ReactPlayer
+      url={true}
+      playing={false}
+      light={video.thumbnail.url}
+      width={'100%'}
+      height={'100%'}
+      onClick={()=>{dispatch(loadVideo(video.mp4.url));router.push('/Player')}}
+      /> 
+      <Center>
+      <div className={style.player_title}>{video.title}</div>
       </Center>
+      </div>)
+      )}
+      </div>
+
+
+
 
       </div>
-    )
+       }
+      </>)
 }
 
 export default MainPage;

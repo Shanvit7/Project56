@@ -8,3 +8,30 @@
     color: blue;
     font-size: 32px;
 }
+
+.sidebar_footer{
+    background-color: blue;
+    color: whitesmoke;
+}
+
+.player_list_header{
+    color:whitesmoke;
+    font-size: 4vh;
+ }
+
+.player_list{
+    display: flex;
+    justify-content: space-between;
+
+.player_wrapper{
+    display: flex;
+    flex-direction: column;
+    height: 30vh;
+    width: 30vw;
+
+    .player_title{
+        color: whitesmoke;
+    }
+}
+
+}

@@ -30,7 +30,7 @@ const Login=()=>{
     }
    
     return(
-        <Center  className={style.login_page}>
+        <Center className={style.login_page}>
             <form onSubmit={handleSubmit(onSubmit)}>
             <Box className={style.login_box}>
 
