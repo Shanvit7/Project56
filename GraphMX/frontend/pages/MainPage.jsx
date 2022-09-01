@@ -65,12 +65,12 @@ const MainPage=({videos})=>{
     const isLoggedin = useSelector(state=>state.authorization.isLoggedin);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
-    if(!isLoggedin){
-      router.push('/Login');
-    }
+    // if(!isLoggedin){
+    //   router.push('/Login');
+    // }
 
     return(<>
-      { (isLoggedin) &&
+      {  (true) &&
       <div>
         <Button ref={btnRef} colorScheme="messenger" onClick={onOpen}>
           <ArrowRightIcon/>
@@ -130,17 +130,18 @@ const MainPage=({videos})=>{
       <div className={style.player_list}>
       {
       videos.map((video,key)=>
-      (<div className={style.player_wrapper}>
+      (<div className={style.player_wrapper} key={key}>
       <ReactPlayer
-      url={true}
+      url={video.mp4.url}
       playing={false}
       light={video.thumbnail.url}
       width={'100%'}
       height={'100%'}
+      key={key}
       onClick={()=>{dispatch(loadVideo(video.mp4.url));router.push('/Player')}}
       /> 
       <Center>
-      <div className={style.player_title}>{video.title}</div>
+      <div className={style.player_title} key={key}>{video.title}</div>
       </Center>
       </div>)
       )}
