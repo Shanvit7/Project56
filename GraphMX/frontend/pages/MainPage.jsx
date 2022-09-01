@@ -3,6 +3,7 @@ import ReactPlayer from 'react-player'
 import { useRouter } from 'next/router';
 import {useDispatch} from 'react-redux';
 import { loadVideo } from '../slices/activitySlice';
+import { Center } from '@chakra-ui/react';
 
 
 export const getStaticProps = async ()=>{
@@ -48,7 +49,9 @@ const MainPage=({videos})=>{
     const router = useRouter();
     const dispatch = useDispatch();
     return(
-      <></>
+      <Center style={{color:'whitesmoke'}}>
+      All video content will be delivered here
+      </Center>
     )
 }
 

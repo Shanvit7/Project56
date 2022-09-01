@@ -1,8 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+
+export const loginProfile = createAsyncThunk(
+  'authorization/loginProfile',
+  async(thunkAPI)=>{
+    const response = await axios.get('api/loginUser',{params:{name:thunkAPI.name}});
+    if(response.data.password===thunkAPI.password){
+      return true;
+    } else{
+      return false;
+    }
+  }
+)
 
 const initialState = {
     isLoggedin:false,
+    loginStatus:'',
 }
 
 export const authSlice = createSlice({
@@ -17,18 +30,28 @@ export const authSlice = createSlice({
         })
     },
 
-    validateProfile:(state,action)=>{
-      if(action.payload.data.password===action.payload.formData.password){
-        state.isLoggedin=true;
-      } else{
+  },
+
+  extraReducers:(builder)=>{
+    builder
+    .addCase(loginProfile.fulfilled,(state,action)=>{
+      if(action.payload){
+      state.isLoggedin=true;
+      state.loginStatus='Login successful'
+      }else{
         state.isLoggedin=false;
+        state.loginStatus='Incorrect Password!'
       }
-    }
+    })
+
+    .addCase(loginProfile.rejected,(state,action)=>{
+      state.isLoggedin=false;
+      state.loginStatus='User not found!'
+    })
   }
     
 })
 
-// Action creators are generated for each case reducer function
-export const {registerProfile,validateProfile} = authSlice.actions
+export const {registerProfile} = authSlice.actions;
 
-export default authSlice.reducer
+export default authSlice.reducer;

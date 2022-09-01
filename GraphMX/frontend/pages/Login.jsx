@@ -2,21 +2,31 @@ import {useRouter} from 'next/router';
 import { Center,Box,Input,Button} from '@chakra-ui/react';
 import { useForm } from "react-hook-form";
 import { useDispatch,useSelector } from 'react-redux';
+import { 
+     Alert,
+     AlertIcon,
+     AlertDescription,
+ } from '@chakra-ui/react';
 import style from './stylesheets/login.module.scss';
 import Link from 'next/link';
-import axios from 'axios';
-import { validateProfile } from '../slices/authSlice';
-
+import { loginProfile } from '../slices/authSlice';
+import { useState } from 'react';
 
 const Login=()=>{
     const router = useRouter();
+    const [loginFailed,setLoginFailed] = useState(false);
+    const loginStatus = useSelector(state=>state.authorization.loginStatus);
+    const isLoggedin = useSelector(state=>state.authorization.isLoggedin);
     const dispatch = useDispatch();
     const { register, handleSubmit, formState: { errors } } = useForm();
+
+    if(isLoggedin){
+        router.push('/MainPage');
+    }
     
     const onSubmit = data => {
-       axios.get('api/loginUser',{params:{name:data.name}}).then((res)=>{
-        dispatch(validateProfile({data:res.data,formData:data}));
-       })
+     dispatch(loginProfile(data));
+     setLoginFailed(!isLoggedin);
     }
    
     return(
@@ -27,6 +37,17 @@ const Login=()=>{
             <Center>
                 <div className={style.login_title}>Login</div>
             </Center>
+
+           {(loginFailed) &&
+            <Center>
+                <Alert status={loginStatus==='Incorrect Password!'?
+                `error`:(loginStatus==='Login successful')?
+                `success`:`warning`}>
+                    <AlertIcon/>
+                    <AlertDescription>{loginStatus}</AlertDescription>
+                </Alert>
+            </Center>
+            }
 
             <Center>
              <Input
