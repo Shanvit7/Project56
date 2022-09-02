@@ -33,6 +33,7 @@
     .signup_link{
       margin-top: 2%;
       font-size: 16px;
+      white-space: nowrap;
     }
 
     .signup_error{
@@ -46,11 +47,30 @@
 }
 
 
-
-@media screen and (max-width:700px) {
+@media screen and (max-width:800px){
     .signup_page{
-    .signup_box{
-        width: 90%;
+        .signup_box{
+            .signup_title{
+                margin-bottom: 4%;
+            }
+            .signup_btn{
+                margin-top: 35%;
+            }
+        }
     }
-  }
+    
+}
+
+@media screen and (max-height:700px){
+    .signup_page{
+        .signup_box{
+          width: 100vw;
+          height: 100vh;
+          .signup_input{
+            margin-top: 6%;
+        }
+    
+        }
+    }
+    
 }
