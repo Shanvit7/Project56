@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  loadVideoURL: 'safe',
+  loadVideoURL: 'maintainence[404]',
 }
 
 export const activitySlice = createSlice({

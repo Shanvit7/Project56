@@ -20,5 +20,27 @@
         color:whitesmoke;
         height: 5vh;
         font-size: 30px;
+        white-space: nowrap;
+    }
+}
+
+@media  screen and (max-width:600px){
+    .landing_title{
+        font-size: 12px;
+        margin-top: 20%;
+    }
+
+    .landing_list{
+        li{
+            font-size: 20px;
+            height: 3vh;
+            margin-top: 5%;
+        }
+    }
+
+    .landing_btn{
+        padding: 7px;
+        width: 6rem;
+        margin-top: 30vh;
     }
 }

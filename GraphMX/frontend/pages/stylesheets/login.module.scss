@@ -53,10 +53,30 @@
 
 
 
-@media screen and (max-width:700px) {
+@media screen and (max-width:800px){
     .login_page{
-    .login_box{
-        width: 90%;
+        .login_box{
+            .login_title{
+                margin-bottom: 4%;
+            }
+            .login_btn{
+                margin-top: 35%;
+            }
+        }
     }
-  }
+    
+}
+
+@media screen and (max-height:700px){
+    .login_page{
+        .login_box{
+          width: 100vw;
+          height: 100vh;
+          .login_input{
+            margin-top: 6%;
+        }
+    
+        }
+    }
+    
 }

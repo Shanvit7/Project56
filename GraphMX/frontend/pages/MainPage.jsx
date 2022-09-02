@@ -71,7 +71,7 @@ const MainPage=({videos})=>{
 
     return(<>
       {  (isLoggedin) &&
-      <div>
+      <div className={style.main_page}>
         <Button ref={btnRef} colorScheme="messenger" onClick={onOpen}>
           <ArrowRightIcon/>
         </Button>
