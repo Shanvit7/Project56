@@ -1,28 +1,19 @@
 import {GraphQLClient} from 'graphql-request';
 import ReactPlayer from 'react-player';
-import React,{useState,useEffect} from 'react';
+import {useEffect,useRef} from 'react';
 import { useRouter } from 'next/router';
 import {useDispatch,useSelector} from 'react-redux';
 import { loadVideo } from '../slices/activitySlice';
 import {
-  Drawer,
-  DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
   Center,
   useDisclosure,
-  VStack,
-  Input,
   Spinner,
 } from '@chakra-ui/react'
 import style from './stylesheets/mainpage.module.scss';
 import TopNavbar from '../components/TopNavbar';
 import { getAllvideos } from '../queries';
 import { storeAllvideos } from '../slices/activitySlice';
-import { searchVideos } from '../slices/activitySlice';
+import SideNavbar from '../components/SideNavbar';
 
 export const getStaticProps = async ()=>{
 
@@ -51,13 +42,9 @@ const MainPage=({videos})=>{
     useEffect(()=>{
       dispatch(storeAllvideos(videos));
     },[videos]);
-    const searchVideoHandle = (e) =>[
-      dispatch(searchVideos(e.target.value))
-    ]
     const isLoggedin = useSelector(state=>state.authorization.isLoggedin);
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    const [search,setSearch] = useState(false);
-    const btnRef = React.useRef();
+    const { isOpen,onClose,onOpen } = useDisclosure();
+    const btnRef = useRef();
     if(!isLoggedin){
       router.push('/Login');
     }
@@ -65,65 +52,10 @@ const MainPage=({videos})=>{
     return(<>
       {  (isLoggedin) &&
       <div className={style.main_page}>
+
         <TopNavbar passRef={btnRef}  openSideBar={onOpen} />
-        <Drawer
-        isOpen={isOpen}
-        placement='left'
-        onClose={onClose}
-        finalFocusRef={btnRef}
-        size={'lg'}
-      >
-        <DrawerOverlay/>
-        <DrawerContent  style={{backgroundColor:"#1a151e"}}>
-          <DrawerCloseButton onClick={()=>setSearch(false)}  />
-          <DrawerHeader style={{backgroundColor:"blue",color:"whitesmoke"}}>
-          <Center>
-            GraphMX {`(Alpha)`}
-            </Center>
-          </DrawerHeader>
+        <SideNavbar passRef={btnRef} isOpenSidebar={isOpen} closeSidebar={onClose} />
 
-          <DrawerBody>
-
-            <VStack spacing={'5vh'}>
-            <Center style={{marginTop:'5%',width:'70%'}}>
-              {search?
-              (<Input 
-                 variant={'flushed'}
-                 placeholder={'Search'} 
-                 className={style.search} 
-                 onChange={searchVideoHandle}
-              />)
-              :
-              (<div className={style.sidebar_options}  onClick={()=>setSearch(true)} >Search</div>)
-              }
-            </Center>
-            <Center>
-              <div className={style.sidebar_options}>Home</div>
-            </Center>
-
-            <Center>
-              <div className={style.sidebar_options}>My Watchlist</div>
-            </Center>
-
-            <Center>
-               <div className={style.sidebar_options}>FAQ</div>
-            </Center>
-            </VStack>
-
-          
-          </DrawerBody>
-
-          <DrawerFooter className={style.sidebar_footer}>
-            <Center>
-             
-            </Center>
-          </DrawerFooter>
-         
-
-        </DrawerContent>
-      </Drawer>
-
-     
       <div className={style.player_list_header}>
         New Releases
       </div>
@@ -158,9 +90,6 @@ const MainPage=({videos})=>{
       </div>)
       )}
       </div>
-
-
-
 
       </div>
        }
