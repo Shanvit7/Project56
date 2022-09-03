@@ -1,0 +1,37 @@
+.top_navbar{
+    display: flex;
+    position:absolute;
+    top:0;
+    color: whitesmoke;
+    background-color: #1a151e;
+    width: 100vw;
+    height: 7vh;
+    margin-bottom: 2%;
+    justify-content: space-between;
+
+    .sidebar{
+        margin-left: 2vw;
+
+        .sidebar_btn{
+            background-color: blue;
+        }
+    }
+
+    .avatar{
+      margin-right: 2vw;
+      cursor: pointer;
+    }
+
+    .title{
+        margin-left: 4vw;
+        font-size: 4vh;
+    }
+
+}
+
+@media screen and (max-height:700px){
+    .top_navbar{
+        height: 10vh;
+    }
+    
+}

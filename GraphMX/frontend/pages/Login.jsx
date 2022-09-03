@@ -27,6 +27,7 @@ const Login=()=>{
     const onSubmit = data => {
      dispatch(loginProfile(data));
      setLoginFailed(!isLoggedin);
+     
     }
    
     return(
@@ -37,6 +38,8 @@ const Login=()=>{
             <Center>
                 <div className={style.login_title}>Login</div>
             </Center>
+
+         
 
            {(loginFailed) &&
             <Center>
