@@ -4,6 +4,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import {useDispatch,useSelector} from 'react-redux';
 import { loadVideo } from '../slices/activitySlice';
+import { useState } from 'react';
 import {
   Drawer,
   DrawerBody,
@@ -12,13 +13,13 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  Button,
   Center,
   useDisclosure,
   VStack,
+  Input
 } from '@chakra-ui/react'
-import {ArrowRightIcon} from '@chakra-ui/icons';
 import style from './stylesheets/mainpage.module.scss';
+import TopNavbar from '../components/TopNavbar';
 
 export const getStaticProps = async ()=>{
     const url = process.env.ENDPOINT;
@@ -64,6 +65,7 @@ const MainPage=({videos})=>{
     const dispatch = useDispatch();
     const isLoggedin = useSelector(state=>state.authorization.isLoggedin);
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const [search,setSearch] = useState(false);
     const btnRef = React.useRef();
     if(!isLoggedin){
       router.push('/Login');
@@ -72,9 +74,7 @@ const MainPage=({videos})=>{
     return(<>
       {  (isLoggedin) &&
       <div className={style.main_page}>
-        <Button ref={btnRef} colorScheme="messenger" onClick={onOpen}>
-          <ArrowRightIcon/>
-        </Button>
+        <TopNavbar passRef={btnRef}  openSideBar={onOpen} />
         <Drawer
         isOpen={isOpen}
         placement='left'
@@ -84,18 +84,22 @@ const MainPage=({videos})=>{
       >
         <DrawerOverlay/>
         <DrawerContent  style={{backgroundColor:"#1a151e"}}>
-          <DrawerCloseButton />
+          <DrawerCloseButton onClick={()=>setSearch(false)}  />
           <DrawerHeader style={{backgroundColor:"blue",color:"whitesmoke"}}>
           <Center>
-            GraphMX {`(Beta)`}
+            GraphMX {`(Alpha)`}
             </Center>
           </DrawerHeader>
 
           <DrawerBody>
 
             <VStack spacing={'5vh'}>
-            <Center style={{marginTop:'5%'}}>
-              <div className={style.sidebar_options}>Search</div>
+            <Center style={{marginTop:'5%',width:'70%'}}>
+              {search?
+              (<Input variant={'flushed'} placeholder={'Search'}  className={style.search} />)
+              :
+              (<div className={style.sidebar_options}  onClick={()=>setSearch(true)} >Search</div>)
+              }
             </Center>
             <Center>
               <div className={style.sidebar_options}>Home</div>
@@ -127,6 +131,7 @@ const MainPage=({videos})=>{
       <div className={style.player_list_header}>
         New Releases
       </div>
+    
       <div className={style.player_list}>
       {
       videos.map((video,key)=>
