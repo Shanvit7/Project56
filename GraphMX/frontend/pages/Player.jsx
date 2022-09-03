@@ -6,7 +6,7 @@ import style from './stylesheets/player.module.scss';
 
 
 const Player =()=>{
-    const videoURL = useSelector(state=>state.activity.loadVideoURL);
+    const videoURL = useSelector(state=>state.activity.currentVideoURL);
     return(
         <>
         <ReactPlayer 

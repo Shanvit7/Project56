@@ -1,10 +1,9 @@
-import {gql,GraphQLClient} from 'graphql-request';
+import {GraphQLClient} from 'graphql-request';
 import ReactPlayer from 'react-player';
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { useRouter } from 'next/router';
 import {useDispatch,useSelector} from 'react-redux';
 import { loadVideo } from '../slices/activitySlice';
-import { useState } from 'react';
 import {
   Drawer,
   DrawerBody,
@@ -16,12 +15,17 @@ import {
   Center,
   useDisclosure,
   VStack,
-  Input
+  Input,
+  Spinner,
 } from '@chakra-ui/react'
 import style from './stylesheets/mainpage.module.scss';
 import TopNavbar from '../components/TopNavbar';
+import { getAllvideos } from '../queries';
+import { storeAllvideos } from '../slices/activitySlice';
+import { searchVideos } from '../slices/activitySlice';
 
 export const getStaticProps = async ()=>{
+
     const url = process.env.ENDPOINT;
     const graphQLClient = new GraphQLClient(url,
       {headers:{
@@ -29,40 +33,27 @@ export const getStaticProps = async ()=>{
       }}
     )
   
-  const query = gql`
-  query{
-    videos{
-      createdAt,
-      id,
-      title,
-      description,
-      seen,
-      slug,
-      tags,
-      thumbnail{
-        url
-      },
-      mp4{
-        url
-      }
-    }
-  }
-  `
-  
-  const data = await graphQLClient.request(query);
-  const videos = data.videos;
+   const query = getAllvideos;
+   const data = await graphQLClient.request(query);
+   const videos = data.videos;
   
   return{
     props:{
       videos,
     }
   }
-  }
+}
   
 
 const MainPage=({videos})=>{
     const router = useRouter();
     const dispatch = useDispatch();
+    useEffect(()=>{
+      dispatch(storeAllvideos(videos));
+    },[videos]);
+    const searchVideoHandle = (e) =>[
+      dispatch(searchVideos(e.target.value))
+    ]
     const isLoggedin = useSelector(state=>state.authorization.isLoggedin);
     const { isOpen, onOpen, onClose } = useDisclosure();
     const [search,setSearch] = useState(false);
@@ -96,7 +87,12 @@ const MainPage=({videos})=>{
             <VStack spacing={'5vh'}>
             <Center style={{marginTop:'5%',width:'70%'}}>
               {search?
-              (<Input variant={'flushed'} placeholder={'Search'}  className={style.search} />)
+              (<Input 
+                 variant={'flushed'}
+                 placeholder={'Search'} 
+                 className={style.search} 
+                 onChange={searchVideoHandle}
+              />)
               :
               (<div className={style.sidebar_options}  onClick={()=>setSearch(true)} >Search</div>)
               }
@@ -136,7 +132,17 @@ const MainPage=({videos})=>{
       {
       videos.map((video,key)=>
       (<div className={style.player_wrapper} key={key}>
-      <ReactPlayer
+      {(!video.mp4.url)?
+      <Center>
+        <Spinner 
+        size='xl' 
+        color='blue.500'
+        thickness='5px'
+        speed='0.6s'
+        /> 
+      </Center>
+      :
+      (<ReactPlayer
       url={video.mp4.url}
       playing={false}
       light={video.thumbnail.url}
@@ -144,9 +150,10 @@ const MainPage=({videos})=>{
       height={'100%'}
       key={key}
       onClick={()=>{dispatch(loadVideo(video.mp4.url));router.push('/Player')}}
-      /> 
+      />)
+      } 
       <Center>
-      <div className={style.player_title} key={key}>{video.title}</div>
+      <div className={style.player_title} key={key}>{video.title || 'Loading...'}</div>
       </Center>
       </div>)
       )}
