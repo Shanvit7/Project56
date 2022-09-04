@@ -3,7 +3,10 @@ import { createSlice} from '@reduxjs/toolkit';
 const initialState = {
   currentVideoURL: 'maintainence[404]',
   allVideosRecived:[],
-  searchVideo:'Initial',
+  searchVideoStatus:{
+    searchedTitle:'',
+    videoFound:false,
+  },
   
 }
 
@@ -18,14 +21,15 @@ export const activitySlice = createSlice({
         state.allVideosRecived = action.payload;
       },
       searchVideos:(state,action)=>{
-        state.allVideosRecived.filter((video)=>{
+        state.searchVideoStatus.searchedTitle=action.payload;
+        state.searchVideoStatus.videoFound =  state.allVideosRecived.find((video)=>{
           if(video.title===action.payload){
-            state.searchVideo = video
-          } else{
-            state.searchVideo = 'Not found 404'
+            return video
           }
         })
+
       }
+       
   },
 
 })
