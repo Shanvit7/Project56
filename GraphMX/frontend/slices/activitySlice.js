@@ -28,12 +28,15 @@ export const activitySlice = createSlice({
           }
         })
 
+      },
+      resetSearch:(state,action)=>{
+         state.searchVideoStatus.searchedTitle=''
       }
        
   },
 
 })
 
-export const { loadVideo, storeAllvideos,searchVideos } = activitySlice.actions
+export const { loadVideo, storeAllvideos,searchVideos,resetSearch } = activitySlice.actions
 
 export default activitySlice.reducer;

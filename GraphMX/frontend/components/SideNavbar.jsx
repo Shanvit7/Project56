@@ -14,6 +14,7 @@ import style from './stylesheets/SideNavbar.module.scss';
 import {useState} from 'react';
 import { searchVideos } from '../slices/activitySlice';
 import {useDispatch} from 'react-redux';
+import { resetSearch } from '../slices/activitySlice';
 
 
 const SideNavbar=({passRef,closeSidebar,isOpenSidebar})=>{
@@ -56,7 +57,12 @@ const SideNavbar=({passRef,closeSidebar,isOpenSidebar})=>{
           }
         </Center>
         <Center>
-          <div className={style.sidebar_options}>Home</div>
+          <div
+           className={style.sidebar_options}
+           onClick={()=>{dispatch(resetSearch());closeSidebar()}}
+           >
+            Home
+          </div>
         </Center>
 
         <Center>
